@@ -1,124 +1,73 @@
-# OmniDev v4.0
+# React + TypeScript + Vite
 
-**Mobile-first multimodal AI chat workspace with progressive web app capabilities**
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Overview
+Currently, two official plugins are available:
 
-OmniDev v4.0 is a production-grade, mobile-first, multimodal AI chat workspace that synthesizes the best UX patterns from ChatGPT, Claude, and Qwen into a cohesive, haptic-enabled design system.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Design Philosophy
+## React Compiler
 
-OmniDev implements a hybrid design system drawing from industry-leading AI chat interfaces:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- **ChatGPT** → Sidebar architecture, project organization, search functionality
-- **Claude** → Floating capsule composer, incognito/ghost mode, context pills, model selector
-- **Qwen/Grok** → Media upload tools, aspect ratio controls, feature toggle pills
+## Expanding the ESLint configuration
 
-## Key Features
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-### Core Capabilities
-- **Mobile-First Design**: Native-like touch interactions with haptic feedback integration
-- **Multimodal Interface**: Support for text, images, audio, and video inputs
-- **Progressive Web App**: Installable, offline-capable, and responsive across all devices
-- **Advanced Model Selection**: Dynamic AI model switching with context preservation
-- **Project Organization**: Hierarchical chat management with folders and tags
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-### Design System
-- **Typography**: Inter variable font with comprehensive type scale
-- **Color Palette**: VASEY/AI brand colors with teal primary accent
-- **Glassmorphism**: Modern floating UI elements with backdrop blur
-- **Dark Mode**: Default dark theme with incognito/ghost mode support
-- **Responsive Layout**: Adaptive interface from mobile to desktop
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-## Technical Stack
-
-- **Frontend Framework**: React with TypeScript
-- **Styling**: CSS custom properties with modern design tokens
-- **Build Tool**: Vite for fast development and optimized production builds
-- **PWA Support**: Service workers for offline functionality
-- **Mobile Optimization**: Touch gestures, haptic feedback, and native-like interactions
-
-## Documentation
-
-The complete system specification and implementation guide is available in:
-- [`OmniDev3_Master_Prompt.txt`](./OmniDev3_Master_Prompt.txt) - Comprehensive master prompt with all design tokens, component specifications, and implementation details
-
-## Getting Started
-
-### Prerequisites
-- Node.js 18+ 
-- npm or pnpm
-- Modern browser with PWA support
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/SeanVasey/OmniDevV4.git
-cd OmniDevV4
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-### Build for Production
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-# Create optimized production build
-npm run build
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-# Preview production build
-npm run preview
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-## Project Structure
-
-```
-OmniDevV4/
-├── src/
-│   ├── components/      # React components
-│   ├── styles/          # CSS and design tokens
-│   ├── hooks/           # Custom React hooks
-│   ├── utils/           # Utility functions
-│   └── types/           # TypeScript type definitions
-├── public/              # Static assets
-├── docs/                # Additional documentation
-└── OmniDev3_Master_Prompt.txt  # Master specification
-```
-
-## Design Tokens
-
-The application uses a comprehensive design token system based on the VASEY/AI brand:
-
-- **Primary Accent**: Teal (#22A4C1)
-- **Dark Background**: Dark Blue (#2B3E47)
-- **Secondary Accent**: Charcoal (#32505A)
-- **Typography**: Inter variable font family
-- **Spacing**: 8px base unit with consistent scale
-
-## Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is proprietary and confidential.
-
-## Contact
-
-**VASEY Multimedia**
-- Website: [vasey.ai](https://vasey.ai)
-- GitHub: [@SeanVasey](https://github.com/SeanVasey)
-
----
-
-Built with ❤️ by the VASEY team
