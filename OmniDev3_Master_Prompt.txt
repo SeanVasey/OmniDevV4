@@ -1,0 +1,2760 @@
+Please begin development creating all necessary files and components, connecting to GitHub if necessary and creating repository named OmniDev3 and be sure the integration and code below is utilized but changed to utilize a better color scheme such as provided in the attached image, also ensure the attached screenshot of the Qwen-style selection for aspect rafio’s is maintained exactly within the capsule. 
+
+Official logos also attached within color scheme ideas. 
+
+Create the application Agenticly!
+⸻
+
+OMNIDEV v3.0 — MASTER SYSTEM PROMPT
+
+IMPLEMENTATION SPECIFICATION FOR CLAUDE CODE & IDE LLM CODERS
+
+⸻
+
+PREAMBLE
+
+ROLE: You are a Principal Full-Stack Architect and Senior Mobile/Frontend Engineer with expertise in progressive web applications, native-like mobile experiences, and sophisticated design systems.
+
+GOAL: Architect and build “OmniDev v3.0,” a production-grade, mobile-first, multimodal AI chat workspace that synthesizes the best UX patterns from ChatGPT, Claude, and Qwen into a cohesive, haptic-enabled design system.
+
+DESIGN LANGUAGE: Implement a hybrid design system drawing from:
+	•	ChatGPT → Sidebar architecture, project organization, search functionality
+	•	Claude → Floating capsule composer, incognito/ghost mode, context pills, model selector
+	•	Qwen/Grok → Media upload tools, aspect ratio controls, feature toggle pills
+
+PRIMARY DIRECTIVE: Mobile-first implementation with native-like touch interactions, haptic feedback integration, and optimized responsive behavior across all device classes.
+
+⸻
+
+1. DESIGN SYSTEM FOUNDATION
+
+1.1 Typography System
+
+Primary Font: Inter (Google Fonts Variable)
+
+/* === FONT CONFIGURATION === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Font Family */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+  
+  /* Font Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Type Scale (Mobile-First) */
+  --text-xs: 0.75rem;        /* 12px - Timestamps, metadata, captions */
+  --text-sm: 0.875rem;       /* 14px - Secondary text, labels */
+  --text-base: 1rem;         /* 16px - Body text, inputs */
+  --text-lg: 1.125rem;       /* 18px - Emphasized body, subheadings */
+  --text-xl: 1.25rem;        /* 20px - Section headers */
+  --text-2xl: 1.5rem;        /* 24px - Page titles, model names */
+  --text-3xl: 1.875rem;      /* 30px - Hero text, greetings */
+  --text-4xl: 2.25rem;       /* 36px - Large display text */
+  
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+  
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+}
+
+/* Apply Inter globally */
+body {
+  font-family: var(--font-primary);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+1.2 Color Palette (Updated to VASEY/AI Brand)
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     BRAND BASE PALETTE (VASEY/AI)
+     ═══════════════════════════════════════════════════════════════ */
+
+  --brand-primary-teal: #22A4C1;   /* Primary Teal */
+  --brand-dark-blue:   #2B3E47;   /* Dark Blue Background */
+  --brand-white:       #FFFFFF;   /* White */
+  --brand-light-gray:  #EAEAEA;   /* Light Gray */
+  --brand-medium-gray: #ABABAB;   /* Medium Gray */
+  --brand-charcoal:    #32505A;   /* Charcoal */
+
+  /* ═══════════════════════════════════════════════════════════════
+     MONOCHROME FOUNDATION
+     Base grayscale palette for backgrounds, text, and borders
+     (derived from brand palette)
+     ═══════════════════════════════════════════════════════════════ */
+
+  --black-pure: #000000;           
+  --black-deep: var(--brand-dark-blue);      /* Primary dark background */
+  --black-elevated: #243543;                 /* Slightly elevated surfaces */
+  --grey-950: #101821;                       /* Cards in dark mode */
+  --grey-900: var(--brand-charcoal);         /* Sidebar background */
+  --grey-850: #2C4253;                       /* Elevated cards */
+  --grey-800: #3A4E5E;                       /* Borders, dividers */
+  --grey-700: #4E6170;                       /* Inactive elements */
+  --grey-600: #677987;                       /* Placeholder text */
+  --grey-500: var(--brand-medium-gray);      /* Secondary/muted text */
+  --grey-400: #C0C6CB;                       /* Tertiary text */
+  --grey-300: var(--brand-light-gray);       /* Primary text dark mode */
+  --grey-200: #F0F2F4;                       /* Emphasized text */
+  --grey-100: #F7F8FA;                       /* Headings dark mode */
+  --grey-50:  #FAFBFC;                       /* Light mode backgrounds */
+  --white-pure: var(--brand-white);          /* Pure white */
+
+  /* ═══════════════════════════════════════════════════════════════
+     PRIMARY ACCENT (TEAL – replaces previous purple)
+     Used for: Primary buttons, active states, focus rings, links
+     ═══════════════════════════════════════════════════════════════ */
+
+  --purple-50:  #E6F7FB;
+  --purple-100: #CBEFFA;
+  --purple-200: #9EDFF4;
+  --purple-300: #72CFEF;
+  --purple-400: #45BFE9;
+  --purple-500: #2CB3D9;
+  --purple-600: var(--brand-primary-teal);   /* PRIMARY ACCENT */
+  --purple-700: #1B839A;
+  --purple-800: #125A6B;
+  --purple-900: #0A3843;
+  --purple-950: #041921;
+  --purple-glow: rgba(34, 164, 193, 0.35);
+  --purple-glow-subtle: rgba(34, 164, 193, 0.15);
+
+  /* ═══════════════════════════════════════════════════════════════
+     SECONDARY ACCENT (CHARCOAL – replaces previous orange)
+     Used for: Project folders, secondary actions
+     ═══════════════════════════════════════════════════════════════ */
+
+  --orange-50:  #F3F5F7;
+  --orange-100: #E4E7EA;
+  --orange-200: #CFD4D8;
+  --orange-300: #B8BFC5;
+  --orange-400: #A1A9B0;
+  --orange-500: var(--brand-charcoal);      /* SECONDARY ACCENT */
+  --orange-600: #273843;
+  --orange-700: #1E2A32;
+  --orange-800: #151D23;
+  --orange-900: #0C1115;
+  --orange-glow: rgba(50, 80, 90, 0.35);
+  --orange-glow-subtle: rgba(50, 80, 90, 0.15);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TERTIARY ACCENT (MEDIUM GRAY – replaces previous coral)
+     Used for: subtle warm-ish highlights, tertiary accents
+     ═══════════════════════════════════════════════════════════════ */
+
+  --coral-50:  #FAFAFA;
+  --coral-100: #F3F3F3;
+  --coral-200: #E8E8E8;
+  --coral-300: #DEDEDE;
+  --coral-400: #D4D4D4;
+  --coral-500: var(--brand-medium-gray);    /* TERTIARY ACCENT */
+  --coral-600: #8E8E8E;
+  --coral-700: #747474;
+  --coral-glow: rgba(171, 171, 171, 0.35);
+
+  /* ═══════════════════════════════════════════════════════════════
+     BLUE ACCENT (Temporary Mode Indicator)
+     Used for: Temporary chat toggle, timer indicators
+     ═══════════════════════════════════════════════════════════════ */
+
+  --blue-400: #60A5FA;
+  --blue-500: #3B82F6;
+  --blue-600: #2563EB;
+  --blue-glow: rgba(59, 130, 246, 0.35);
+
+  /* ═══════════════════════════════════════════════════════════════
+     SEMANTIC COLORS
+     Status and feedback colors
+     ═══════════════════════════════════════════════════════════════ */
+
+  --color-success: #22c55e;        /* Green 500 */
+  --color-success-muted: #16a34a;  /* Green 600 */
+  --color-warning: #eab308;        /* Yellow 500 */
+  --color-warning-muted: #ca8a04;  /* Yellow 600 */
+  --color-error: #ef4444;          /* Red 500 */
+  --color-error-muted: #dc2626;    /* Red 600 */
+  --color-info: #3b82f6;           /* Blue 500 */
+  --color-info-muted: #2563eb;     /* Blue 600 */
+
+  /* ═══════════════════════════════════════════════════════════════
+     GLASSMORPHISM TOKENS
+     For floating elements, modals, composer
+     ═══════════════════════════════════════════════════════════════ */
+
+  --glass-bg: rgba(22, 32, 38, 0.80);
+  --glass-bg-elevated: rgba(22, 32, 38, 0.90);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-subtle: rgba(255, 255, 255, 0.04);
+  --glass-blur: 20px;
+  --glass-blur-heavy: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME: DARK MODE (Default)
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"],
+:root {
+  --bg-primary: var(--black-deep);      /* Dark blue background */
+  --bg-secondary: var(--grey-900);      /* Charcoal sidebar */
+  --bg-elevated: var(--grey-850);
+  --bg-muted: var(--grey-950);
+
+  --text-primary: var(--grey-100);
+  --text-secondary: var(--grey-400);
+  --text-muted: var(--grey-500);
+  --text-placeholder: var(--grey-600);
+
+  --border-default: var(--grey-800);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-strong: var(--grey-700);
+
+  --accent-primary: var(--purple-600);        /* Brand teal */
+  --accent-primary-hover: var(--purple-500);
+  --accent-secondary: var(--orange-500);      /* Charcoal */
+  --accent-tertiary: var(--coral-500);        /* Medium gray */
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME: INCOGNITO/GHOST MODE
+   Activated via data-mode="incognito" on <body>
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-mode="incognito"] {
+  --bg-primary: var(--black-pure);
+  --bg-secondary: #050505;
+  --bg-elevated: var(--black-deep);
+  --bg-muted: #030303;
+
+  --text-primary: var(--grey-300);
+  --text-secondary: var(--grey-500);
+  --text-muted: var(--grey-600);
+
+  --border-default: rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.03);
+
+  --accent-primary: var(--grey-400);
+  --accent-primary-hover: var(--grey-300);
+
+  /* Ghost watermark pattern */
+  --ghost-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 10c-8.284 0-15 6.716-15 15v15c0 2.761 2.239 5 5 5h3v-3h-3c-1.105 0-2-.895-2-2V25c0-6.627 5.373-12 12-12s12 5.373 12 12v15c0 1.105-.895 2-2 2h-3v3h3c2.761 0 5-2.239 5-5V25c0-8.284-6.716-15-15-15z' fill='%23ffffff' fill-opacity='0.02'/%3E%3C/svg%3E");
+}
+
+[data-mode="incognito"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--ghost-pattern);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME: LIGHT MODE (Optional)
+   ═══════════════════════════════════════════════════════════════ */
+
+[data-theme="light"] {
+  --bg-primary: var(--white-pure);
+  --bg-secondary: var(--grey-50);
+  --bg-elevated: var(--white-pure);
+  --bg-muted: var(--grey-100);
+
+  --text-primary: var(--grey-900);
+  --text-secondary: var(--grey-600);
+  --text-muted: var(--grey-500);
+  --text-placeholder: var(--grey-400);
+
+  --border-default: var(--grey-200);
+  --border-subtle: var(--grey-100);
+  --border-strong: var(--grey-300);
+
+  --glass-bg: rgba(255, 255, 255, 0.80);
+  --glass-border: rgba(0, 0, 0, 0.08);
+}
+1.3 Spacing & Layout Tokens
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     SPACING SCALE (4px base unit)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --space-px: 1px;
+  --space-0: 0;
+  --space-0.5: 0.125rem;     /* 2px */
+  --space-1: 0.25rem;        /* 4px */
+  --space-1.5: 0.375rem;     /* 6px */
+  --space-2: 0.5rem;         /* 8px */
+  --space-2.5: 0.625rem;     /* 10px */
+  --space-3: 0.75rem;        /* 12px */
+  --space-3.5: 0.875rem;     /* 14px */
+  --space-4: 1rem;           /* 16px */
+  --space-5: 1.25rem;        /* 20px */
+  --space-6: 1.5rem;         /* 24px */
+  --space-7: 1.75rem;        /* 28px */
+  --space-8: 2rem;           /* 32px */
+  --space-9: 2.25rem;        /* 36px */
+  --space-10: 2.5rem;        /* 40px */
+  --space-11: 2.75rem;       /* 44px */
+  --space-12: 3rem;          /* 48px */
+  --space-14: 3.5rem;        /* 56px */
+  --space-16: 4rem;          /* 64px */
+  --space-20: 5rem;          /* 80px */
+  --space-24: 6rem;          /* 96px */
+  --space-28: 7rem;          /* 112px */
+  --space-32: 8rem;          /* 128px */
+
+  /* ═══════════════════════════════════════════════════════════════
+     BORDER RADIUS SCALE
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --radius-none: 0;
+  --radius-sm: 0.25rem;      /* 4px - Small chips */
+  --radius-md: 0.375rem;     /* 6px - Buttons */
+  --radius-lg: 0.5rem;       /* 8px - Cards */
+  --radius-xl: 0.75rem;      /* 12px - Modals */
+  --radius-2xl: 1rem;        /* 16px - Large cards */
+  --radius-3xl: 1.5rem;      /* 24px - Floating elements */
+  --radius-4xl: 2rem;        /* 32px - Capsule composer */
+  --radius-full: 9999px;     /* Pills, avatars */
+
+  /* ═══════════════════════════════════════════════════════════════
+     SAFE AREA INSETS (Mobile)
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+
+  /* ═══════════════════════════════════════════════════════════════
+     Z-INDEX SCALE
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --z-base: 0;
+  --z-docked: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-banner: 250;
+  --z-drawer: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+  --z-overlay: 800;
+  --z-max: 9999;
+
+  /* ═══════════════════════════════════════════════════════════════
+     LAYOUT CONSTRAINTS
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --max-width-xs: 20rem;     /* 320px */
+  --max-width-sm: 24rem;     /* 384px */
+  --max-width-md: 28rem;     /* 448px */
+  --max-width-lg: 32rem;     /* 512px */
+  --max-width-xl: 36rem;     /* 576px */
+  --max-width-2xl: 42rem;    /* 672px */
+  --max-width-3xl: 48rem;    /* 768px - Composer max width */
+  --max-width-4xl: 56rem;    /* 896px */
+  --max-width-5xl: 64rem;    /* 1024px */
+  --max-width-6xl: 72rem;    /* 1152px */
+  --max-width-7xl: 80rem;    /* 1280px */
+  --max-width-full: 100%;
+  
+  --sidebar-width: 280px;
+  --sidebar-width-collapsed: 72px;
+  --header-height: 64px;
+  --header-height-mobile: 56px;
+  --composer-bottom-offset: 24px;
+  --composer-bottom-offset-mobile: 16px;
+}
+
+1.4 Animation & Transition Tokens
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     TIMING FUNCTIONS
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* ═══════════════════════════════════════════════════════════════
+     DURATIONS
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --duration-instant: 0ms;
+  --duration-fastest: 50ms;
+  --duration-faster: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
+  --duration-slowest: 500ms;
+  
+  /* ═══════════════════════════════════════════════════════════════
+     TRANSITION PRESETS
+     ═══════════════════════════════════════════════════════════════ */
+  
+  --transition-colors: color var(--duration-fast) var(--ease-in-out),
+                       background-color var(--duration-fast) var(--ease-in-out),
+                       border-color var(--duration-fast) var(--ease-in-out);
+  --transition-opacity: opacity var(--duration-fast) var(--ease-in-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-in-out);
+}
+
+
+⸻
+
+2. MOBILE-FIRST ARCHITECTURE
+
+2.1 Responsive Breakpoints
+
+// tailwind.config.ts
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  darkMode: ['class', '[data-theme="dark"]'],
+  theme: {
+    screens: {
+      'xs': '375px',      // iPhone SE, small phones
+      'sm': '640px',      // Large phones (landscape)
+      'md': '768px',      // Tablets
+      'lg': '1024px',     // Small laptops
+      'xl': '1280px',     // Desktops
+      '2xl': '1536px',    // Large screens
+      '3xl': '1920px',    // Ultra-wide
+      
+      // Max-width variants
+      'max-xs': { 'max': '374px' },
+      'max-sm': { 'max': '639px' },
+      'max-md': { 'max': '767px' },
+      'max-lg': { 'max': '1023px' },
+      
+      // Touch device detection
+      'touch': { 'raw': '(hover: none) and (pointer: coarse)' },
+      'stylus': { 'raw': '(hover: none) and (pointer: fine)' },
+      'mouse': { 'raw': '(hover: hover) and (pointer: fine)' },
+    },
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'var(--font-primary)'],
+      },
+      colors: {
+        // Map CSS variables to Tailwind
+        background: 'var(--bg-primary)',
+        foreground: 'var(--text-primary)',
+        muted: {
+          DEFAULT: 'var(--bg-muted)',
+          foreground: 'var(--text-muted)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent-primary)',
+          hover: 'var(--accent-primary-hover)',
+          secondary: 'var(--accent-secondary)',
+          tertiary: 'var(--accent-tertiary)',
+        },
+        border: 'var(--border-default)',
+        // Direct color access
+        purple: {
+          50: 'var(--purple-50)',
+          100: 'var(--purple-100)',
+          200: 'var(--purple-200)',
+          300: 'var(--purple-300)',
+          400: 'var(--purple-400)',
+          500: 'var(--purple-500)',
+          600: 'var(--purple-600)',
+          700: 'var(--purple-700)',
+          800: 'var(--purple-800)',
+          900: 'var(--purple-900)',
+        },
+        orange: {
+          50: 'var(--orange-50)',
+          100: 'var(--orange-100)',
+          200: 'var(--orange-200)',
+          300: 'var(--orange-300)',
+          400: 'var(--orange-400)',
+          500: 'var(--orange-500)',
+          600: 'var(--orange-600)',
+          700: 'var(--orange-700)',
+          800: 'var(--orange-800)',
+          900: 'var(--orange-900)',
+        },
+        coral: {
+          400: 'var(--coral-400)',
+          500: 'var(--coral-500)',
+          600: 'var(--coral-600)',
+        },
+      },
+      spacing: {
+        'safe-top': 'var(--safe-area-top)',
+        'safe-bottom': 'var(--safe-area-bottom)',
+        'safe-left': 'var(--safe-area-left)',
+        'safe-right': 'var(--safe-area-right)',
+      },
+      borderRadius: {
+        '4xl': '2rem',
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      animation: {
+        'fade-in': 'fadeIn var(--duration-normal) var(--ease-out)',
+        'fade-out': 'fadeOut var(--duration-normal) var(--ease-in)',
+        'slide-up': 'slideUp var(--duration-normal) var(--ease-out)',
+        'slide-down': 'slideDown var(--duration-normal) var(--ease-out)',
+        'scale-in': 'scaleIn var(--duration-fast) var(--ease-spring)',
+        'pulse-soft': 'pulseSoft 2s var(--ease-in-out) infinite',
+        'waveform': 'waveform 1s var(--ease-in-out) infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        pulseSoft: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.7' },
+        },
+        waveform: {
+          '0%, 100%': { transform: 'scaleY(0.5)' },
+          '50%': { transform: 'scaleY(1)' },
+        },
+      },
+    },
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('tailwindcss-animate'),
+  ],
+};
+
+export default config;
+
+2.2 Touch Target Standards
+
+/* ═══════════════════════════════════════════════════════════════
+   TOUCH TARGET SPECIFICATIONS
+   Minimum 44x44px for all interactive elements (Apple HIG)
+   ═══════════════════════════════════════════════════════════════ */
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-target-lg {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+.touch-target-xl {
+  min-height: 56px;
+  min-width: 56px;
+}
+
+/* Icon buttons */
+.icon-button {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  transition: var(--transition-colors), var(--transition-transform);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+/* Mobile-specific tap highlight removal */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+}
+
+
+⸻
+
+3. HAPTIC FEEDBACK SYSTEM
+
+3.1 Haptic Hook Implementation
+
+// hooks/useHaptics.ts
+'use client';
+
+import { useCallback, useMemo } from 'react';
+
+/**
+ * Haptic Feedback Patterns
+ * Each pattern is designed for specific interaction types
+ */
+export type HapticPattern =
+  | 'light'           // Subtle feedback - selections, hovers
+  | 'medium'          // Standard feedback - button presses
+  | 'heavy'           // Strong feedback - important actions, long press
+  | 'success'         // Double pulse - task completion, message sent
+  | 'warning'         // Triple quick - alerts, confirmations
+  | 'error'           // Long buzz - errors, failures
+  | 'selection'       // Tick feedback - list selection, toggles
+  | 'impact-light'    // iOS-style light impact
+  | 'impact-medium'   // iOS-style medium impact
+  | 'impact-heavy'    // iOS-style heavy impact
+  | 'notification'    // Notification pattern
+  | 'keyboard';       // Keyboard tick (very subtle)
+
+interface HapticConfig {
+  pattern: number[];
+  description: string;
+}
+
+const HAPTIC_PATTERNS: Record<HapticPattern, HapticConfig> = {
+  'light': {
+    pattern: [10],
+    description: 'Subtle single vibration for minor interactions'
+  },
+  'medium': {
+    pattern: [25],
+    description: 'Standard vibration for button presses'
+  },
+  'heavy': {
+    pattern: [50],
+    description: 'Strong vibration for important actions'
+  },
+  'success': {
+    pattern: [20, 50, 30],
+    description: 'Double pulse indicating successful completion'
+  },
+  'warning': {
+    pattern: [15, 30, 15, 30, 15],
+    description: 'Triple quick vibration for warnings'
+  },
+  'error': {
+    pattern: [100],
+    description: 'Long vibration indicating an error'
+  },
+  'selection': {
+    pattern: [5],
+    description: 'Very subtle tick for selections'
+  },
+  'impact-light': {
+    pattern: [8],
+    description: 'iOS-style light impact'
+  },
+  'impact-medium': {
+    pattern: [18],
+    description: 'iOS-style medium impact'
+  },
+  'impact-heavy': {
+    pattern: [35],
+    description: 'iOS-style heavy impact'
+  },
+  'notification': {
+    pattern: [50, 100, 50],
+    description: 'Notification arrival pattern'
+  },
+  'keyboard': {
+    pattern: [3],
+    description: 'Ultra-subtle keyboard tick'
+  },
+};
+
+interface UseHapticsReturn {
+  /** Trigger a haptic feedback pattern */
+  trigger: (pattern: HapticPattern, options?: { force?: boolean }) => void;
+  /** Check if haptics are supported */
+  isSupported: boolean;
+  /** Check if haptics are enabled in settings */
+  isEnabled: boolean;
+  /** Toggle haptics on/off */
+  setEnabled: (enabled: boolean) => void;
+}
+
+export function useHaptics(): UseHapticsReturn {
+  const isSupported = useMemo(() => {
+    if (typeof navigator === 'undefined') return false;
+    return 'vibrate' in navigator;
+  }, []);
+
+  const isEnabled = useMemo(() => {
+    if (typeof localStorage === 'undefined') return true;
+    const stored = localStorage.getItem('omnidev-haptics-enabled');
+    return stored !== 'false'; // Default to true
+  }, []);
+
+  const setEnabled = useCallback((enabled: boolean) => {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('omnidev-haptics-enabled', String(enabled));
+    }
+  }, []);
+
+  const trigger = useCallback((
+    pattern: HapticPattern,
+    options?: { force?: boolean }
+  ) => {
+    // Skip if not supported or disabled (unless forced)
+    if (!isSupported) return;
+    if (!isEnabled && !options?.force) return;
+
+    const config = HAPTIC_PATTERNS[pattern];
+    if (!config) {
+      console.warn(`Unknown haptic pattern: ${pattern}`);
+      return;
+    }
+
+    try {
+      navigator.vibrate(config.pattern);
+    } catch (error) {
+      // Silently fail - haptics are non-critical
+      console.debug('Haptic feedback failed:', error);
+    }
+  }, [isSupported, isEnabled]);
+
+  return {
+    trigger,
+    isSupported,
+    isEnabled,
+    setEnabled,
+  };
+}
+
+/**
+ * Higher-order component for adding haptic feedback to buttons
+ */
+export function withHaptics<P extends { onClick?: () => void }>(
+  WrappedComponent: React.ComponentType<P>,
+  pattern: HapticPattern = 'medium'
+) {
+  return function HapticWrapper(props: P) {
+    const { trigger } = useHaptics();
+    
+    const handleClick = () => {
+      trigger(pattern);
+      props.onClick?.();
+    };
+
+    return <WrappedComponent {...props} onClick={handleClick} />;
+  };
+}
+
+3.2 Haptic Integration Map
+
+// lib/haptic-triggers.ts
+
+/**
+ * HAPTIC TRIGGER INTEGRATION POINTS
+ * Reference this map when implementing components
+ */
+
+export const HAPTIC_TRIGGERS = {
+  // ═══════════════════════════════════════════════════════════════
+  // NAVIGATION & MODE CHANGES
+  // ═══════════════════════════════════════════════════════════════
+  
+  sidebar: {
+    open: 'impact-medium',       // Opening sidebar drawer
+    close: 'impact-light',       // Closing sidebar drawer
+    swipeStart: 'selection',     // Beginning swipe gesture
+    swipeComplete: 'impact-medium', // Completing swipe to open/close
+  },
+  
+  modeToggle: {
+    enterIncognito: 'impact-heavy',  // Entering ghost mode
+    exitIncognito: 'impact-medium',  // Exiting ghost mode
+    themeChange: 'selection',        // Light/dark toggle
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // COMPOSER INTERACTIONS
+  // ═══════════════════════════════════════════════════════════════
+  
+  composer: {
+    focus: 'light',              // Focusing the input
+    attachmentAdd: 'selection',  // Adding an attachment
+    attachmentRemove: 'light',   // Removing an attachment
+    contextPillSelect: 'selection', // Selecting Deep Research, etc.
+    contextPillDeselect: 'light',   // Deselecting context
+    aspectRatioChange: 'selection', // Changing image aspect ratio
+    voiceStart: 'impact-medium', // Starting voice recording
+    voiceStop: 'impact-light',   // Stopping voice recording
+    send: 'success',             // Sending a message
+    sendFailed: 'error',         // Message send failure
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // MODEL & DROPDOWN SELECTIONS
+  // ═══════════════════════════════════════════════════════════════
+  
+  modelSelector: {
+    open: 'light',               // Opening model dropdown
+    select: 'selection',         // Selecting a model
+    close: 'light',              // Closing dropdown
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // UPLOAD MENU
+  // ═══════════════════════════════════════════════════════════════
+  
+  uploadMenu: {
+    open: 'light',               // Opening upload menu
+    selectOption: 'selection',   // Selecting upload type
+    fileSelected: 'success',     // File successfully selected
+    uploadError: 'error',        // Upload failed
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // CHAT & MESSAGES
+  // ═══════════════════════════════════════════════════════════════
+  
+  chat: {
+    newConversation: 'impact-medium', // Creating new chat
+    deleteConversation: 'heavy',      // Deleting a chat
+    messageReceived: 'notification',  // AI response complete
+    copyToClipboard: 'success',       // Copied message
+    regenerate: 'medium',             // Regenerating response
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // BUTTONS & GENERIC INTERACTIONS
+  // ═══════════════════════════════════════════════════════════════
+  
+  button: {
+    primary: 'medium',           // Primary action buttons
+    secondary: 'light',          // Secondary buttons
+    destructive: 'heavy',        // Delete, remove actions
+    icon: 'light',               // Icon-only buttons
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // GESTURES
+  // ═══════════════════════════════════════════════════════════════
+  
+  gesture: {
+    longPressStart: 'heavy',     // Long press initiated
+    pullToRefreshTrigger: 'impact-heavy', // Pull-to-refresh threshold
+    swipeAction: 'selection',    // Swipe action on list item
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // SYSTEM FEEDBACK
+  // ═══════════════════════════════════════════════════════════════
+  
+  system: {
+    success: 'success',
+    warning: 'warning',
+    error: 'error',
+    info: 'light',
+  },
+} as const;
+
+
+⸻
+
+4. VISUAL & UX SPECIFICATIONS
+
+4.1 Layout Shell (Sidebar)
+
+Reference: ChatGPT Desktop Web UI
+
+Desktop Sidebar Structure
+
+┌─────────────────────────────────┐
+│  ┌─────────────────────────┐   │
+│  │ 🔍 Search...            │   │  ← Global Search
+│  └─────────────────────────┘   │
+│  ┌─────────────────────────┐   │
+│  │ ➕ New Chat             │   │  ← New Chat Button
+│  └─────────────────────────┘   │
+│                                 │
+│  PROJECTS                       │  ← Section Header (uppercase, xs)
+│  ├─ 📁 Image Generation       │  ← Orange folder icon (example label)
+│  ├─ 📁 Code Assistant         │
+│  └─ 📁 Research Workspace     │
+│                                 │
+│  RECENT                         │
+│  ├─ Recent conversation 1...   │
+│  ├─ Recent conversation 2...   │
+│  ├─ Recent conversation 3...   │
+│  └─ ...                        │
+│                                 │
+│ ─────────────────────────────── │  ← Separator
+│  ┌─────────────────────────┐   │
+│  │ 👤 Current User      ⚙️ │   │  ← User Panel (sticky footer)
+│  └─────────────────────────┘   │
+└─────────────────────────────────┘
+
+Important note for implementation:
+	•	Project names in the sidebar are entirely user-generated and should represent general capabilities or workflows (e.g., “Image Generation”, “Code Assistant”, “Research Workspace”).
+	•	Do not hardcode any specific personal project names from prior examples or existing ChatGPT sidebars. The UI should dynamically reflect whatever projects/workspaces the user creates.
+
+Mobile Sidebar (Swipeable Drawer)
+
+// components/sidebar/MobileSidebar.tsx
+'use client';
+
+import { motion, AnimatePresence, useDragControls, PanInfo } from 'framer-motion';
+import { useHaptics, HAPTIC_TRIGGERS } from '@/hooks/useHaptics';
+
+interface MobileSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const DRAWER_WIDTH = 320; // px
+const SWIPE_THRESHOLD = 100; // px
+const VELOCITY_THRESHOLD = 500; // px/s
+
+export function MobileSidebar({ isOpen, onClose, children }: MobileSidebarProps) {
+  const { trigger } = useHaptics();
+  const dragControls = useDragControls();
+
+  const handleDragStart = () => {
+    trigger(HAPTIC_TRIGGERS.sidebar.swipeStart);
+  };
+
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const shouldClose = 
+      info.offset.x < -SWIPE_THRESHOLD || 
+      info.velocity.x < -VELOCITY_THRESHOLD;
+
+    if (shouldClose) {
+      trigger(HAPTIC_TRIGGERS.sidebar.swipeComplete);
+      onClose();
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => {
+              trigger(HAPTIC_TRIGGERS.sidebar.close);
+              onClose();
+            }}
+            className="
+              fixed inset-0 z-[var(--z-drawer)]
+              bg-black/60 backdrop-blur-sm
+            "
+          />
+
+          {/* Drawer */}
+          <motion.aside
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{
+              type: 'spring',
+              damping: 25,
+              stiffness: 300,
+            }}
+            drag="x"
+            dragControls={dragControls}
+            dragConstraints={{ left: -DRAWER_WIDTH, right: 0 }}
+            dragElastic={0.2}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            style={{ width: DRAWER_WIDTH }}
+            className="
+              fixed left-0 top-0 bottom-0
+              z-[calc(var(--z-drawer)+1)]
+              bg-[var(--bg-secondary)]
+              border-r border-[var(--border-subtle)]
+              flex flex-col
+              pt-[var(--safe-area-top)]
+              pb-[var(--safe-area-bottom)]
+              overflow-hidden
+            "
+          >
+            {children}
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+Sidebar Content Component
+
+// components/sidebar/SidebarContent.tsx
+'use client';
+
+import { Search, Plus, Folder, MessageSquare, Settings } from 'lucide-react';
+import { useHaptics, HAPTIC_TRIGGERS } from '@/hooks/useHaptics';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
+
+interface SidebarContentProps {
+  projects: Project[];
+  recentChats: Chat[];
+  user: User | null;
+  onNewChat: () => void;
+  onSelectChat: (chatId: string) => void;
+  onSelectProject: (projectId: string) => void;
+}
+
+export function SidebarContent({
+  projects,
+  recentChats,
+  user,
+  onNewChat,
+  onSelectChat,
+  onSelectProject,
+}: SidebarContentProps) {
+  const { trigger } = useHaptics();
+
+  return (
+    <>
+      {/* Header: Search + New Chat */}
+      <div className="flex-shrink-0 p-4 space-y-3 border-b border-[var(--border-subtle)]">
+        {/* Search Input */}
+        <div className="relative">
+          <Search 
+            className="
+              absolute left-3 top-1/2 -translate-y-1/2
+              w-4 h-4 text-[var(--text-muted)]
+            " 
+          />
+          <input
+            type="text"
+            placeholder="Search conversations..."
+            className="
+              w-full h-11 pl-10 pr-4
+              bg-[var(--bg-muted)] 
+              border border-[var(--border-subtle)]
+              rounded-xl
+              text-sm text-[var(--text-primary)]
+              placeholder:text-[var(--text-placeholder)]
+              focus:outline-none focus:ring-2 focus:ring-[var(--purple-600)]/50
+              transition-all
+            "
+          />
+        </div>
+
+        {/* New Chat Button */}
+        <button
+          onClick={() => {
+            trigger(HAPTIC_TRIGGERS.chat.newConversation);
+            onNewChat();
+          }}
+          className="
+            w-full flex items-center justify-center gap-2
+            h-11 px-4
+            bg-[var(--purple-600)]/10 
+            hover:bg-[var(--purple-600)]/20
+            border border-[var(--purple-600)]/30
+            rounded-xl
+            text-[var(--purple-400)] font-medium
+            transition-colors
+            touch-target
+          "
+        >
+          <Plus className="w-5 h-5" />
+          <span>New Chat</span>
+        </button>
+      </div>
+
+      {/* Scrollable Navigation */}
+      <ScrollArea className="flex-1">
+        <nav className="p-2 space-y-6">
+          {/* Projects Section */}
+          <div>
+            <h3 className="
+              px-3 py-2 
+              text-xs font-semibold uppercase tracking-wider
+              text-[var(--text-muted)]
+            ">
+              Projects
+            </h3>
+            <div className="space-y-1">
+              {projects.map((project) => (
+                <button
+                  key={project.id}
+                  onClick={() => {
+                    trigger(HAPTIC_TRIGGERS.button.secondary);
+                    onSelectProject(project.id);
+                  }}
+                  className="
+                    w-full flex items-center gap-3
+                    px-3 py-2.5
+                    rounded-lg
+                    text-[var(--text-secondary)]
+                    hover:bg-[var(--bg-elevated)]
+                    hover:text-[var(--text-primary)]
+                    transition-colors
+                    touch-target
+                    text-left
+                  "
+                >
+                  <Folder className="w-5 h-5 text-[var(--orange-500)] flex-shrink-0" />
+                  <span className="truncate text-sm">{project.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Chats Section */}
+          <div>
+            <h3 className="
+              px-3 py-2 
+              text-xs font-semibold uppercase tracking-wider
+              text-[var(--text-muted)]
+            ">
+              Recent
+            </h3>
+            <div className="space-y-1">
+              {recentChats.map((chat) => (
+                <button
+                  key={chat.id}
+                  onClick={() => {
+                    trigger(HAPTIC_TRIGGERS.button.secondary);
+                    onSelectChat(chat.id);
+                  }}
+                  className="
+                    w-full flex items-center gap-3
+                    px-3 py-2.5
+                    rounded-lg
+                    text-[var(--text-secondary)]
+                    hover:bg-[var(--bg-elevated)]
+                    hover:text-[var(--text-primary)]
+                    transition-colors
+                    touch-target
+                    text-left
+                  "
+                >
+                  <MessageSquare className="w-4 h-4 flex-shrink-0 opacity-50" />
+                  <span className="truncate text-sm">{chat.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </nav>
+      </ScrollArea>
+
+      {/* User Panel (Sticky Footer) */}
+      <div className="
+        flex-shrink-0 
+        border-t border-[var(--border-subtle)]
+        p-4
+      ">
+        {user ? (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Avatar className="w-10 h-10">
+                <AvatarImage src={user.avatar_url} alt={user.full_name} />
+                <AvatarFallback className="bg-[var(--purple-600)] text-white">
+                  {user.full_name?.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-[var(--text-primary)]">
+                  {user.full_name}
+                </span>
+                <span className="text-xs text-[var(--text-muted)]">
+                  {user.email}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={() => trigger(HAPTIC_TRIGGERS.button.icon)}
+              className="
+                icon-button
+                text-[var(--text-muted)]
+                hover:text-[var(--text-primary)]
+                hover:bg-[var(--bg-elevated)]
+              "
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+          </div>
+        ) : (
+          <SignInButton />
+        )}
+      </div>
+    </>
+  );
+}
+
+4.2 The Input Engine (Composer)
+
+(unchanged, retained in full for completeness)
+
+// components/chat/Composer.tsx
+'use client';
+
+import { useState, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Plus, 
+  Clock, 
+  X, 
+  Mic, 
+  ArrowUp, 
+  Sparkles, 
+  Globe, 
+  GraduationCap, 
+  Palette,
+  AudioLines 
+} from 'lucide-react';
+import { useHaptics, HAPTIC_TRIGGERS } from '@/hooks/useHaptics';
+import { useAutoResizeTextarea } from '@/hooks/useAutoResizeTextarea';
+import { cn } from '@/lib/utils';
+import { ContextPill } from './ContextPill';
+import { UploadMenu } from './UploadMenu';
+import { AspectRatioSelector } from './AspectRatioSelector';
+import { AttachmentPreview } from './AttachmentPreview';
+
+export type ContextMode = 'thinking' | 'search' | 'research' | 'image' | null;
+export type AspectRatio = '1:1' | '3:4' | '4:3' | '16:9' | '9:16';
+
+interface ComposerProps {
+  onSubmit: (message: string, attachments: File[], context: ContextMode, aspectRatio?: AspectRatio) => void;
+  isIncognito: boolean;
+  onIncognitoToggle: () => void;
+  disabled?: boolean;
+}
+
+export function Composer({ 
+  onSubmit, 
+  isIncognito, 
+  onIncognitoToggle,
+  disabled = false 
+}: ComposerProps) {
+  const { trigger } = useHaptics();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  // State
+  const [message, setMessage] = useState('');
+  const [attachments, setAttachments] = useState<File[]>([]);
+  const [activeContext, setActiveContext] = useState<ContextMode>(null);
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>('1:1');
+  const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const [showUploadMenu, setShowUploadMenu] = useState(false);
+  
+  // Auto-resize textarea
+  useAutoResizeTextarea(textareaRef, message);
+
+  // Handlers
+  const handleSubmit = useCallback(() => {
+    if (!message.trim() && attachments.length === 0) return;
+    
+    trigger(HAPTIC_TRIGGERS.composer.send);
+    onSubmit(
+      message.trim(), 
+      attachments, 
+      activeContext,
+      activeContext === 'image' ? aspectRatio : undefined
+    );
+    
+    // Reset state
+    setMessage('');
+    setAttachments([]);
+    textareaRef.current?.focus();
+  }, [message, attachments, activeContext, aspectRatio, trigger, onSubmit]);
+
+  const handleContextSelect = useCallback((context: ContextMode) => {
+    if (activeContext === context) {
+      trigger(HAPTIC_TRIGGERS.composer.contextPillDeselect);
+      setActiveContext(null);
+    } else {
+      trigger(HAPTIC_TRIGGERS.composer.contextPillSelect);
+      setActiveContext(context);
+    }
+  }, [activeContext, trigger]);
+
+  const handleAttachmentAdd = useCallback((files: File[]) => {
+    trigger(HAPTIC_TRIGGERS.composer.attachmentAdd);
+    setAttachments(prev => [...prev, ...files]);
+    setShowUploadMenu(false);
+  }, [trigger]);
+
+  const handleAttachmentRemove = useCallback((index: number) => {
+    trigger(HAPTIC_TRIGGERS.composer.attachmentRemove);
+    setAttachments(prev => prev.filter((_, i) => i !== index));
+  }, [trigger]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  }, [handleSubmit]);
+
+  const canSend = message.trim().length > 0 || attachments.length > 0;
+
+  return (
+    <div className="
+      fixed bottom-0 left-0 right-0
+      pb-[calc(var(--safe-area-bottom)+16px)]
+      md:pb-[calc(var(--safe-area-bottom)+24px)]
+      px-4
+      pointer-events-none
+      z-[var(--z-docked)]
+    ">
+      <div className="
+        max-w-3xl mx-auto
+        pointer-events-auto
+      ">
+        {/* Context Pills */}
+        <div className="
+          flex gap-2 mb-3 
+          overflow-x-auto 
+          pb-2 -mx-4 px-4
+          scrollbar-hide
+        ">
+          <ContextPill
+            icon={<Sparkles className="w-4 h-4" />}
+            label="Thinking"
+            active={activeContext === 'thinking'}
+            accentColor="purple"
+            onPress={() => handleContextSelect('thinking')}
+          />
+          <ContextPill
+            icon={<Globe className="w-4 h-4" />}
+            label="Search"
+            active={activeContext === 'search'}
+            accentColor="purple"
+            onPress={() => handleContextSelect('search')}
+          />
+          <ContextPill
+            icon={<GraduationCap className="w-4 h-4" />}
+            label="Deep Research"
+            active={activeContext === 'research'}
+            accentColor="orange"
+            onPress={() => handleContextSelect('research')}
+          />
+          <ContextPill
+            icon={<Palette className="w-4 h-4" />}
+            label="Image Gen"
+            active={activeContext === 'image'}
+            accentColor="coral"
+            onPress={() => handleContextSelect('image')}
+          />
+        </div>
+
+        {/* Aspect Ratio Selector (Conditional) */}
+        <AnimatePresence>
+          {activeContext === 'image' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: 10, height: 0 }}
+              className="mb-3"
+            >
+              <AspectRatioSelector
+                selected={aspectRatio}
+                onSelect={(ratio) => {
+                  trigger(HAPTIC_TRIGGERS.composer.aspectRatioChange);
+                  setAspectRatio(ratio);
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Main Composer Capsule */}
+        <div className={cn(
+          "relative",
+          "bg-[var(--glass-bg)] backdrop-blur-xl",
+          "border border-[var(--glass-border)]",
+          "rounded-[2rem]",
+          "shadow-2xl",
+          "overflow-hidden",
+          "transition-all duration-200",
+          disabled && "opacity-50 pointer-events-none"
+        )}>
+          {/* Attachment Previews */}
+          <AnimatePresence>
+            {attachments.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="px-4 pt-3 flex gap-2 overflow-x-auto"
+              >
+                {attachments.map((file, index) => (
+                  <AttachmentPreview
+                    key={`${file.name}-${index}`}
+                    file={file}
+                    onRemove={() => handleAttachmentRemove(index)}
+                  />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Input Row */}
+          <div className="flex items-end gap-2 p-3">
+            {/* Attachment Button */}
+            <button
+              onClick={() => {
+                trigger(HAPTIC_TRIGGERS.uploadMenu.open);
+                setShowUploadMenu(true);
+              }}
+              className="
+                flex-shrink-0
+                icon-button
+                bg-[var(--bg-muted)]/50
+                text-[var(--text-muted)]
+                hover:text-[var(--text-primary)]
+                hover:bg-[var(--bg-muted)]
+              "
+            >
+              <Plus className="w-5 h-5" />
+            </button>
+
+            {/* Textarea */}
+            <div className="flex-1 min-h-[24px]">
+              <textarea
+                ref={textareaRef}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Chat with OmniDev..."
+                rows={1}
+                disabled={disabled}
+                className="
+                  w-full
+                  resize-none
+                  bg-transparent
+                  text-[var(--text-primary)]
+                  placeholder:text-[var(--text-placeholder)]
+                  text-base leading-relaxed
+                  focus:outline-none
+                  max-h-32 overflow-y-auto
+                  scrollbar-hide
+                "
+                style={{
+                  height: 'auto',
+                  minHeight: '24px',
+                }}
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex-shrink-0 flex items-center gap-1">
+              {/* Temporary/Incognito Toggle */}
+              <button
+                onClick={() => {
+                  trigger(HAPTIC_TRIGGERS.modeToggle.enterIncognito);
+                  onIncognitoToggle();
+                }}
+                className={cn(
+                  "icon-button transition-all",
+                  isIncognito
+                    ? "bg-[var(--blue-500)]/20 text-[var(--blue-400)]"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                )}
+              >
+                {isIncognito ? (
+                  <div className="flex items-center gap-0.5">
+                    <Clock className="w-4 h-4" />
+                    <X className="w-3 h-3" />
+                  </div>
+                ) : (
+                  <Clock className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Voice Button */}
+              <button
+                onClick={() => {
+                  const newState = !isVoiceActive;
+                  trigger(newState 
+                    ? HAPTIC_TRIGGERS.composer.voiceStart 
+                    : HAPTIC_TRIGGERS.composer.voiceStop
+                  );
+                  setIsVoiceActive(newState);
+                }}
+                className={cn(
+                  "icon-button transition-all",
+                  isVoiceActive
+                    ? "bg-[var(--purple-600)] text-white scale-110"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                )}
+              >
+                {isVoiceActive ? (
+                  <AudioLines className="w-5 h-5 animate-pulse" />
+                ) : (
+                  <Mic className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Send Button */}
+              <AnimatePresence>
+                {canSend && (
+                  <motion.button
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+                    onClick={handleSubmit}
+                    className="
+                      icon-button
+                      bg-[var(--purple-600)]
+                      text-white
+                      hover:bg-[var(--purple-500)]
+                    "
+                  >
+                    <ArrowUp className="w-5 h-5" />
+                  </motion.button>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+
+        {/* Upload Menu */}
+        <UploadMenu
+          isOpen={showUploadMenu}
+          onClose={() => setShowUploadMenu(false)}
+          onSelect={handleAttachmentAdd}
+        />
+      </div>
+    </div>
+  );
+}
+
+4.3 Context Pills Component
+
+// components/chat/ContextPill.tsx
+'use client';
+
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { useHaptics } from '@/hooks/useHaptics';
+
+interface ContextPillProps {
+  icon: React.ReactNode;
+  label: string;
+  active: boolean;
+  accentColor: 'purple' | 'orange' | 'coral' | 'blue';
+  onPress: () => void;
+}
+
+const accentStyles = {
+  purple: {
+    active: 'bg-[var(--purple-600)]/20 text-[var(--purple-400)] border-[var(--purple-600)]/50',
+    inactive: 'bg-[var(--bg-muted)] text-[var(--text-muted)] border-[var(--border-subtle)]',
+    glow: 'shadow-[0_0_20px_var(--purple-glow)]',
+  },
+  orange: {
+    active: 'bg-[var(--orange-500)]/20 text-[var(--orange-400)] border-[var(--orange-500)]/50',
+    inactive: 'bg-[var(--bg-muted)] text-[var(--text-muted)] border-[var(--border-subtle)]',
+    glow: 'shadow-[0_0_20px_var(--orange-glow)]',
+  },
+  coral: {
+    active: 'bg-[var(--coral-500)]/20 text-[var(--coral-400)] border-[var(--coral-500)]/50',
+    inactive: 'bg-[var(--bg-muted)] text-[var(--text-muted)] border-[var(--border-subtle)]',
+    glow: 'shadow-[0_0_20px_var(--coral-glow)]',
+  },
+  blue: {
+    active: 'bg-[var(--blue-500)]/20 text-[var(--blue-400)] border-[var(--blue-500)]/50',
+    inactive: 'bg-[var(--bg-muted)] text-[var(--text-muted)] border-[var(--border-subtle)]',
+    glow: 'shadow-[0_0_20px_var(--blue-glow)]',
+  },
+};
+
+export function ContextPill({
+  icon,
+  label,
+  active,
+  accentColor,
+  onPress,
+}: ContextPillProps) {
+  const { trigger } = useHaptics();
+  const styles = accentStyles[accentColor];
+
+  return (
+    <motion.button
+      whileTap={{ scale: 0.95 }}
+      onClick={() => {
+        trigger('selection');
+        onPress();
+      }}
+      className={cn(
+        "flex-shrink-0",
+        "flex items-center gap-2",
+        "h-9 px-4",
+        "rounded-full",
+        "border",
+        "text-sm font-medium",
+        "transition-all duration-200",
+        "touch-target",
+        active ? styles.active : styles.inactive,
+        active && styles.glow
+      )}
+    >
+      {icon}
+      <span>{label}</span>
+    </motion.button>
+  );
+}
+
+4.4 Upload Menu Component
+
+// components/chat/UploadMenu.tsx
+'use client';
+
+import { motion, AnimatePresence } from 'framer-motion';
+import { FileText, Image as ImageIcon, Video, Music } from 'lucide-react';
+import { useHaptics, HAPTIC_TRIGGERS } from '@/hooks/useHaptics';
+
+interface UploadMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSelect: (files: File[]) => void;
+}
+
+const uploadOptions = [
+  { id: 'document', icon: FileText, label: 'Upload document', accept: '.pdf,.doc,.docx,.txt,.md' },
+  { id: 'image', icon: ImageIcon, label: 'Upload Image', accept: 'image/*' },
+  { id: 'video', icon: Video, label: 'Upload Video', accept: 'video/*' },
+  { id: 'audio', icon: Music, label: 'Upload Audio', accept: 'audio/*' },
+];
+
+export function UploadMenu({ isOpen, onClose, onSelect }: UploadMenuProps) {
+  const { trigger } = useHaptics();
+
+  const handleFileSelect = (accept: string) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = accept;
+    input.multiple = true;
+    
+    input.onchange = (e) => {
+      const files = Array.from((e.target as HTMLInputElement).files || []);
+      if (files.length > 0) {
+        trigger(HAPTIC_TRIGGERS.uploadMenu.fileSelected);
+        onSelect(files);
+      }
+    };
+    
+    input.click();
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[var(--z-modal)]"
+            onClick={onClose}
+          />
+
+          {/* Menu */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="
+              fixed left-4 bottom-28 z-[calc(var(--z-modal)+1)]
+              bg-[var(--glass-bg-elevated)] backdrop-blur-xl
+              border border-[var(--glass-border)]
+              rounded-2xl overflow-hidden
+              shadow-2xl
+              min-w-[220px]
+            "
+          >
+            {uploadOptions.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => {
+                  trigger(HAPTIC_TRIGGERS.uploadMenu.selectOption);
+                  handleFileSelect(option.accept);
+                  onClose();
+                }}
+                className="
+                  w-full flex items-center justify-between
+                  px-4 py-4
+                  text-[var(--text-primary)]
+                  hover:bg-[var(--bg-elevated)]
+                  transition-colors
+                  border-b border-[var(--glass-border)] last:border-b-0
+                  touch-target
+                "
+              >
+                <span className="text-base font-medium">{option.label}</span>
+                <option.icon className="w-5 h-5 text-[var(--text-muted)]" />
+              </button>
+            ))}
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+4.5 Aspect Ratio Selector
+
+// components/chat/AspectRatioSelector.tsx
+'use client';
+
+import { Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { useHaptics } from '@/hooks/useHaptics';
+import type { AspectRatio } from './Composer';
+
+interface AspectRatioSelectorProps {
+  selected: AspectRatio;
+  onSelect: (ratio: AspectRatio) => void;
+}
+
+const aspectRatios: { id: AspectRatio; label: string }[] = [
+  { id: '1:1', label: '1:1' },
+  { id: '3:4', label: '3:4' },
+  { id: '4:3', label: '4:3' },
+  { id: '16:9', label: '16:9' },
+  { id: '9:16', label: '9:16' },
+];
+
+export function AspectRatioSelector({ selected, onSelect }: AspectRatioSelectorProps) {
+  const { trigger } = useHaptics();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="
+        inline-flex flex-col
+        bg-[var(--glass-bg-elevated)] backdrop-blur-xl
+        border border-[var(--glass-border)]
+        rounded-2xl
+        p-2
+        shadow-xl
+      "
+    >
+      {aspectRatios.map((ratio) => {
+        const isSelected = selected === ratio.id;
+        
+        return (
+          <button
+            key={ratio.id}
+            onClick={() => {
+              trigger('selection');
+              onSelect(ratio.id);
+            }}
+            className={cn(
+              "flex items-center gap-3 px-4 py-3 rounded-xl transition-all touch-target",
+              isSelected
+                ? "bg-[var(--purple-600)]/20 text-[var(--purple-400)]"
+                : "text-[var(--text-muted)] hover:bg-[var(--bg-elevated)]"
+            )}
+          >
+            {/* Checkbox */}
+            <div className={cn(
+              "w-5 h-5 rounded flex items-center justify-center border-2 transition-all",
+              isSelected
+                ? "border-[var(--purple-500)] bg-[var(--purple-600)]"
+                : "border-[var(--border-default)]"
+            )}>
+              {isSelected && <Check className="w-3 h-3 text-white" />}
+            </div>
+            
+            {/* Label */}
+            <span className="text-lg font-medium">{ratio.label}</span>
+          </button>
+        );
+      })}
+    </motion.div>
+  );
+}
+
+4.6 Model Selector Header
+
+// components/header/ModelSelector.tsx
+'use client';
+
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, ChevronDown, Ghost } from 'lucide-react';
+import { useHaptics, HAPTIC_TRIGGERS } from '@/hooks/useHaptics';
+import { cn } from '@/lib/utils';
+import { ModelDropdown } from './ModelDropdown';
+import type { AIModel } from '@/types';
+
+interface ModelSelectorProps {
+  currentModel: AIModel;
+  isIncognito: boolean;
+  onModelChange: (model: AIModel) => void;
+  onIncognitoToggle: () => void;
+  onMenuOpen: () => void;
+}
+
+export function ModelSelector({
+  currentModel,
+  isIncognito,
+  onModelChange,
+  onIncognitoToggle,
+  onMenuOpen,
+}: ModelSelectorProps) {
+  const { trigger } = useHaptics();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  return (
+    <header className="
+      fixed top-0 left-0 right-0
+      pt-[var(--safe-area-top)]
+      z-[var(--z-sticky)]
+    ">
+      {/* Gradient fade */}
+      <div className="
+        absolute inset-0
+        bg-gradient-to-b from-[var(--bg-primary)] via-[var(--bg-primary)]/80 to-transparent
+        pointer-events-none
+      " />
+
+      {/* Header content */}
+      <div className="
+        relative
+        flex items-center justify-between
+        px-4 py-3
+      ">
+        {/* Menu Button (Mobile) */}
+        <button
+          onClick={() => {
+            trigger(HAPTIC_TRIGGERS.sidebar.open);
+            onMenuOpen();
+          }}
+          className="
+            icon-button
+            border border-[var(--border-default)]
+            text-[var(--text-muted)]
+            hover:text-[var(--text-primary)]
+            md:hidden
+          "
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
+        {/* Model Selector */}
+        <button
+          onClick={() => {
+            trigger(HAPTIC_TRIGGERS.modelSelector.open);
+            setIsDropdownOpen(!isDropdownOpen);
+          }}
+          className="flex items-center gap-2"
+        >
+          <span className="text-xl font-semibold text-[var(--text-primary)]">
+            {currentModel.name}
+          </span>
+          <ChevronDown className={cn(
+            "w-5 h-5 text-[var(--text-muted)] transition-transform duration-200",
+            isDropdownOpen && "rotate-180"
+          )} />
+          {isIncognito && (
+            <span className="text-sm text-[var(--text-muted)]">
+              Incognito chat
+            </span>
+          )}
+        </button>
+
+        {/* Ghost Toggle */}
+        <button
+          onClick={() => {
+            trigger(HAPTIC_TRIGGERS.modeToggle.enterIncognito);
+            onIncognitoToggle();
+          }}
+          className={cn(
+            "icon-button border transition-all",
+            isIncognito
+              ? "border-[var(--text-muted)] bg-[var(--bg-elevated)] text-[var(--text-primary)]"
+              : "border-[var(--border-default)] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+          )}
+        >
+          <Ghost className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Model Dropdown */}
+      <AnimatePresence>
+        {isDropdownOpen && (
+          <ModelDropdown
+            currentModel={currentModel}
+            onSelect={(model) => {
+              trigger(HAPTIC_TRIGGERS.modelSelector.select);
+              onModelChange(model);
+              setIsDropdownOpen(false);
+            }}
+            onClose={() => {
+              trigger(HAPTIC_TRIGGERS.modelSelector.close);
+              setIsDropdownOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
+
+4.7 Ghost Icon Component
+
+// components/icons/GhostIcon.tsx
+import { cn } from '@/lib/utils';
+
+interface GhostIconProps {
+  className?: string;
+}
+
+export function GhostIcon({ className }: GhostIconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={cn("w-6 h-6", className)}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2C6.477 2 2 6.477 2 12v8a2 2 0 002 2h2v-2H4v-8a8 8 0 1116 0v8h-2v2h2a2 2 0 002-2v-8c0-5.523-4.477-10-10-10zM9 13.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm7.5-1.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM12 22a2 2 0 01-2-2h4a2 2 0 01-2 2z"
+      />
+    </svg>
+  );
+}
+
+
+⸻
+
+5. TECHNOLOGY STACK & CONFIGURATION
+
+5.1 Core Dependencies
+
+// package.json
+{
+  "name": "omnidev",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "supabase gen types typescript --project-id YOUR_PROJECT_ID > types/database.types.ts",
+    "db:migrate": "supabase db push"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    
+    "@supabase/ssr": "^0.4.0",
+    "@supabase/supabase-js": "^2.45.0",
+    
+    "ai": "^3.3.0",
+    "@ai-sdk/openai": "^0.0.50",
+    "@ai-sdk/anthropic": "^0.0.40",
+    
+    "zustand": "^4.5.0",
+    
+    "framer-motion": "^11.3.0",
+    
+    "@radix-ui/react-avatar": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.0",
+    "@radix-ui/react-dropdown-menu": "^2.1.0",
+    "@radix-ui/react-popover": "^1.1.0",
+    "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.0",
+    "@radix-ui/react-tooltip": "^1.1.0",
+    
+    "lucide-react": "^0.400.0",
+    
+    "react-markdown": "^9.0.0",
+    "rehype-highlight": "^7.0.0",
+    "remark-gfm": "^4.0.0",
+    
+    "sonner": "^1.5.0",
+    
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.4.0",
+    "class-variance-authority": "^0.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "tailwindcss-animate": "^1.0.0",
+    
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0"
+  }
+}
+
+5.2 Next.js Configuration
+
+// next.config.mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+
+
+⸻
+
+6. DATABASE SCHEMA (Supabase / PostgreSQL)
+
+-- ═══════════════════════════════════════════════════════════════
+-- OMNIDEV DATABASE SCHEMA
+-- Run this in Supabase SQL Editor
+-- ═══════════════════════════════════════════════════════════════
+
+-- Enable UUID extension
+create extension if not exists "uuid-ossp";
+
+-- ═══════════════════════════════════════════════════════════════
+-- 1. PROFILES (Linked to Supabase Auth)
+-- ═══════════════════════════════════════════════════════════════
+create table public.profiles (
+  id uuid references auth.users on delete cascade not null primary key,
+  email text,
+  full_name text,
+  avatar_url text,
+  preferences jsonb default '{
+    "theme": "dark",
+    "haptics_enabled": true,
+    "default_model": "gpt-4o"
+  }'::jsonb,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.profiles enable row level security;
+
+-- RLS Policies
+create policy "Users can view own profile"
+  on public.profiles for select
+  using (auth.uid() = id);
+
+create policy "Users can update own profile"
+  on public.profiles for update
+  using (auth.uid() = id);
+
+-- Auto-create profile on signup
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.profiles (id, email, full_name, avatar_url)
+  values (
+    new.id,
+    new.email,
+    new.raw_user_meta_data->>'full_name',
+    new.raw_user_meta_data->>'avatar_url'
+  );
+  return new;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+
+-- ═══════════════════════════════════════════════════════════════
+-- 2. WORKSPACES (Projects/Folders)
+-- ═══════════════════════════════════════════════════════════════
+create table public.workspaces (
+  id uuid default gen_random_uuid() primary key,
+  owner_id uuid references public.profiles(id) on delete cascade not null,
+  name text not null,
+  description text,
+  color text default 'orange', -- For folder icon color
+  icon text default 'folder',
+  is_archived boolean default false,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.workspaces enable row level security;
+
+-- RLS Policies
+create policy "Users can view own workspaces"
+  on public.workspaces for select
+  using (auth.uid() = owner_id);
+
+create policy "Users can create workspaces"
+  on public.workspaces for insert
+  with check (auth.uid() = owner_id);
+
+create policy "Users can update own workspaces"
+  on public.workspaces for update
+  using (auth.uid() = owner_id);
+
+create policy "Users can delete own workspaces"
+  on public.workspaces for delete
+  using (auth.uid() = owner_id);
+
+-- Index for faster queries
+create index idx_workspaces_owner on public.workspaces(owner_id);
+
+-- ═══════════════════════════════════════════════════════════════
+-- 3. CHATS (Conversations)
+-- ═══════════════════════════════════════════════════════════════
+create table public.chats (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  workspace_id uuid references public.workspaces(id) on delete set null,
+  title text default 'New Chat',
+  model_id text not null default 'gpt-4o',
+  context_mode text, -- 'thinking', 'search', 'research', 'image', null
+  is_pinned boolean default false,
+  is_archived boolean default false,
+  is_incognito boolean default false, -- Should be ephemeral
+  metadata jsonb default '{}'::jsonb,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.chats enable row level security;
+
+-- RLS Policies
+create policy "Users can view own chats"
+  on public.chats for select
+  using (auth.uid() = user_id);
+
+create policy "Users can create chats"
+  on public.chats for insert
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own chats"
+  on public.chats for update
+  using (auth.uid() = user_id);
+
+create policy "Users can delete own chats"
+  on public.chats for delete
+  using (auth.uid() = user_id);
+
+-- Indexes
+create index idx_chats_user on public.chats(user_id);
+create index idx_chats_workspace on public.chats(workspace_id);
+create index idx_chats_updated on public.chats(updated_at desc);
+
+-- Auto-cleanup incognito chats older than 24 hours
+create or replace function cleanup_incognito_chats()
+returns void as $$
+begin
+  delete from public.chats
+  where is_incognito = true
+  and created_at < now() - interval '24 hours';
+end;
+$$ language plpgsql security definer;
+
+-- ═══════════════════════════════════════════════════════════════
+-- 4. MESSAGES
+-- ═══════════════════════════════════════════════════════════════
+create table public.messages (
+  id uuid default gen_random_uuid() primary key,
+  chat_id uuid references public.chats(id) on delete cascade not null,
+  role text not null check (role in ('user', 'assistant', 'system')),
+  content text not null,
+  attachments jsonb default '[]'::jsonb, -- [{url, type, name, size}]
+  aspect_ratio text, -- For image generation: '1:1', '3:4', etc.
+  metrics jsonb default '{}'::jsonb, -- {tokens_input, tokens_output, cost, latency_ms}
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.messages enable row level security;
+
+-- RLS Policies (inherit from parent chat)
+create policy "Users can view messages in own chats"
+  on public.messages for select
+  using (
+    exists (
+      select 1 from public.chats
+      where chats.id = messages.chat_id
+      and chats.user_id = auth.uid()
+    )
+  );
+
+create policy "Users can create messages in own chats"
+  on public.messages for insert
+  with check (
+    exists (
+      select 1 from public.chats
+      where chats.id = messages.chat_id
+      and chats.user_id = auth.uid()
+    )
+  );
+
+-- Index for message retrieval
+create index idx_messages_chat on public.messages(chat_id);
+create index idx_messages_created on public.messages(created_at);
+
+-- ═══════════════════════════════════════════════════════════════
+-- 5. ATTACHMENTS (File storage metadata)
+-- ═══════════════════════════════════════════════════════════════
+create table public.attachments (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.profiles(id) on delete cascade not null,
+  message_id uuid references public.messages(id) on delete cascade,
+  storage_path text not null,
+  file_name text not null,
+  file_type text not null,
+  file_size bigint not null,
+  public_url text,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.attachments enable row level security;
+
+create policy "Users can view own attachments"
+  on public.attachments for select
+  using (auth.uid() = user_id);
+
+create policy "Users can create attachments"
+  on public.attachments for insert
+  with check (auth.uid() = user_id);
+
+-- ═══════════════════════════════════════════════════════════════
+-- 6. STORAGE BUCKET
+-- ═══════════════════════════════════════════════════════════════
+
+-- Run in Supabase Dashboard → Storage → New Bucket
+-- Bucket name: attachments
+-- Public: false (use signed URLs)
+-- File size limit: 50MB
+-- Allowed MIME types: image/*, video/*, audio/*, application/pdf, text/*
+
+-- Storage policies (set in Supabase Dashboard)
+-- SELECT: auth.uid() = owner
+-- INSERT: auth.uid() IS NOT NULL
+-- DELETE: auth.uid() = owner
+
+-- ═══════════════════════════════════════════════════════════════
+-- 7. UPDATED_AT TRIGGER
+-- ═══════════════════════════════════════════════════════════════
+create or replace function update_updated_at_column()
+returns trigger as $$
+begin
+  new.updated_at = timezone('utc'::text, now());
+  return new;
+end;
+$$ language plpgsql;
+
+create trigger update_profiles_updated_at
+  before update on public.profiles
+  for each row execute procedure update_updated_at_column();
+
+create trigger update_workspaces_updated_at
+  before update on public.workspaces
+  for each row execute procedure update_updated_at_column();
+
+create trigger update_chats_updated_at
+  before update on public.chats
+  for each row execute procedure update_updated_at_column();
+
+
+⸻
+
+7. PROJECT DIRECTORY STRUCTURE
+
+omnidev/
+├── app/
+│   ├── (auth)/
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   ├── callback/
+│   │   │   └── route.ts
+│   │   └── layout.tsx
+│   │
+│   ├── (chat)/
+│   │   ├── layout.tsx              # Main chat layout with sidebar
+│   │   ├── page.tsx                # New chat / landing
+│   │   └── [chatId]/
+│   │       └── page.tsx            # Individual chat view
+│   │
+│   ├── api/
+│   │   ├── chat/
+│   │   │   └── route.ts            # AI streaming endpoint
+│   │   ├── models/
+│   │   │   └── route.ts            # Available models
+│   │   └── upload/
+│   │       └── route.ts            # File upload handler
+│   │
+│   ├── globals.css                 # Design tokens & base styles
+│   ├── layout.tsx                  # Root layout
+│   └── providers.tsx               # Context providers wrapper
+│
+├── components/
+│   ├── chat/
+│   │   ├── Composer.tsx            # Main input capsule
+│   │   ├── ContextPill.tsx         # Mode selector pills
+│   │   ├── UploadMenu.tsx          # File upload modal
+│   │   ├── AspectRatioSelector.tsx # Image aspect ratio picker
+│   │   ├── AttachmentPreview.tsx   # File preview chips
+│   │   ├── MessageList.tsx         # Chat messages container
+│   │   ├── MessageBubble.tsx       # Individual message
+│   │   ├── VoiceInput.tsx          # Voice recording UI
+│   │   ├── Waveform.tsx            # Audio visualization
+│   │   └── StreamingIndicator.tsx  # AI typing indicator
+│   │
+│   ├── sidebar/
+│   │   ├── AppSidebar.tsx          # Desktop sidebar
+│   │   ├── MobileSidebar.tsx       # Swipeable drawer
+│   │   ├── SidebarContent.tsx      # Sidebar internals
+│   │   ├── SidebarHeader.tsx       # Search + new chat
+│   │   ├── SidebarNav.tsx          # Navigation items
+│   │   ├── SidebarProjectItem.tsx  # Project folder item
+│   │   ├── SidebarChatItem.tsx     # Chat history item
+│   │   └── UserPanel.tsx           # User account section
+│   │
+│   ├── header/
+│   │   ├── ModelSelector.tsx       # Model picker header
+│   │   ├── ModelDropdown.tsx       # Model list dropdown
+│   │   └── MobileHeader.tsx        # Simplified mobile header
+│   │
+│   ├── icons/
+│   │   ├── GhostIcon.tsx           # Incognito ghost SVG
+│   │   ├── AudioWaveform.tsx       # Animated waveform
+│   │   ├── LoadingDots.tsx         # Streaming indicator
+│   │   └── index.ts                # Icon exports
+│   │
+│   ├── ui/
+│   │   ├── avatar.tsx              # Radix Avatar
+│   │   ├── button.tsx              # Button variants
+│   │   ├── dialog.tsx              # Radix Dialog
+│   │   ├── dropdown-menu.tsx       # Radix Dropdown
+│   │   ├── input.tsx               # Text input
+│   │   ├── popover.tsx             # Radix Popover
+│   │   ├── scroll-area.tsx         # Radix ScrollArea
+│   │   ├── separator.tsx           # Radix Separator
+│   │   ├── switch.tsx              # Radix Switch
+│   │   ├── tooltip.tsx             # Radix Tooltip
+│   │   └── index.ts                # UI exports
+│   │
+│   └── providers/
+│       ├── ThemeProvider.tsx       # Dark/light/incognito
+│       ├── SupabaseProvider.tsx    # Auth context
+│       └── HapticsProvider.tsx     # Haptics context
+│
+├── hooks/
+│   ├── useHaptics.ts               # Haptic feedback hook
+│   ├── useSwipe.ts                 # Swipe gesture detection
+│   ├── useMediaQuery.ts            # Responsive breakpoints
+│   ├── useSafeArea.ts              # Safe area insets
+│   ├── useIncognito.ts             # Incognito mode logic
+│   ├── useAutoResizeTextarea.ts    # Textarea auto-grow
+│   ├── useAudioRecorder.ts         # Voice input recording
+│   ├── useLocalStorage.ts          # Persistent state
+│   └── useDebounce.ts              # Debounce utility
+│
+├── stores/
+│   ├── chatStore.ts                # Chat state (Zustand)
+│   ├── uiStore.ts                  # UI state (sidebar, modals)
+│   └── settingsStore.ts            # User preferences
+│
+├── lib/
+│   ├── supabase/
+│   │   ├── client.ts               # Browser client
+│   │   ├── server.ts               # Server client
+│   │   ├── middleware.ts           # Auth middleware
+│   │   └── storage.ts              # File upload helpers
+│   │
+│   ├── ai/
+│   │   ├── providers.ts            # AI provider configs
+│   │   ├── models.ts               # Model definitions
+│   │   └── prompts.ts              # System prompts
+│   │
+│   ├── haptics/
+│   │   └── triggers.ts             # Haptic trigger map
+│   │
+│   └── utils.ts                    # Utility functions (cn, etc.)
+│
+├── types/
+│   ├── index.ts                    # Type exports
+│   ├── chat.ts                     # Chat-related types
+│   ├── models.ts                   # AI model types
+│   ├── database.types.ts           # Supabase generated types
+│   └── haptics.ts                  # Haptic pattern types
+│
+├── styles/
+│   └── fonts.ts                    # Font configuration
+│
+├── public/
+│   ├── fonts/
+│   │   └── Inter-Variable.woff2
+│   ├── icons/
+│   │   ├── favicon.ico
+│   │   ├── apple-touch-icon.png
+│   │   └── manifest.json
+│   └── images/
+│       └── ghost-pattern.svg
+│
+├── supabase/
+│   └── migrations/
+│       └── 001_initial_schema.sql
+│
+├── .env.local.example
+├── .gitignore
+├── tailwind.config.ts
+├── postcss.config.js
+├── next.config.mjs
+├── tsconfig.json
+├── package.json
+└── README.md
+
+
+⸻
+
+8. IMPLEMENTATION PLAN (Phased)
+
+Phase 1: Foundation & Scaffold (Day 1-2)
+
+Tasks:
+	1.	Initialize Next.js 14 project with TypeScript
+	2.	Install all dependencies from package.json
+	3.	Configure Tailwind with design tokens (colors, spacing, typography)
+	4.	Setup Inter font (Google Fonts)
+	5.	Create globals.css with all CSS custom properties
+	6.	Configure tailwind.config.ts with full theme extension
+	7.	Setup Supabase client (client.ts and server.ts)
+	8.	Create base layout structure
+
+Deliverables:
+	•	Working Next.js project
+	•	Complete design token system
+	•	Supabase connection verified
+
+Phase 2: Authentication & Database (Day 2-3)
+
+Tasks:
+	1.	Run database schema migration in Supabase
+	2.	Implement Google OAuth sign-in
+	3.	Create auth callback route
+	4.	Build UserPanel component (avatar, name, settings)
+	5.	Implement protected route middleware
+	6.	Test auth flow end-to-end
+
+Deliverables:
+	•	Working authentication
+	•	Database tables created
+	•	User profiles auto-created on signup
+
+Phase 3: Core Components - Sidebar (Day 3-4)
+
+Tasks:
+	1.	Build AppSidebar (desktop version)
+	2.	Build MobileSidebar with swipe gestures
+	3.	Create SidebarContent with all sections
+	4.	Implement project folders (orange icons)
+	5.	Implement recent chats list
+	6.	Add search functionality
+	7.	Integrate haptic feedback on all interactions
+
+Deliverables:
+	•	Responsive sidebar
+	•	Swipeable drawer on mobile
+	•	Haptics working
+
+Phase 4: Core Components - Composer (Day 4-5)
+
+Tasks:
+	1.	Build Composer capsule component
+	2.	Create ContextPill components
+	3.	Build UploadMenu modal
+	4.	Create AspectRatioSelector
+	5.	Implement AttachmentPreview
+	6.	Add voice input button (UI only)
+	7.	Integrate all haptic triggers
+
+Deliverables:
+	•	Floating capsule composer
+	•	Context mode switching
+	•	File attachment flow
+	•	Aspect ratio selection for image mode
+
+Phase 5: Header & Model Selection (Day 5-6)
+
+Tasks:
+	1.	Build ModelSelector header
+	2.	Create ModelDropdown with grouped models
+	3.	Implement Ghost/Incognito toggle
+	4.	Add mobile header variant
+	5.	Wire up model switching logic
+
+Deliverables:
+	•	Model switching working
+	•	Incognito visual toggle
+
+Phase 6: AI Integration (Day 6-7)
+
+Tasks:
+	1.	Setup Vercel AI SDK routes
+	2.	Configure model providers (OpenAI, Anthropic)
+	3.	Implement streaming responses
+	4.	Create message display components
+	5.	Add copy/regenerate actions
+	6.	Handle aspect ratio injection for image prompts
+
+Deliverables:
+	•	AI chat working
+	•	Streaming responses
+	•	Multiple model support
+
+Phase 7: Incognito Mode (Day 7-8)
+
+Tasks:
+	1.	Implement useIncognito hook
+	2.	Create Zustand store for incognito state
+	3.	Add visual theme switching (data-mode attribute)
+	4.	Implement ghost watermark background
+	5.	Block database writes in incognito
+	6.	Add cleanup logic for ephemeral chats
+
+Deliverables:
+	•	Full incognito mode
+	•	Zero persistence when enabled
+	•	Visual differentiation
+
+Phase 8: Voice Input (Day 8-9)
+
+Tasks:
+	1.	Build useAudioRecorder hook
+	2.	Create Waveform visualization component
+	3.	Implement speech-to-text (Web Speech API or Whisper)
+	4.	Add recording state UI
+	5.	Integrate with composer
+
+Deliverables:
+	•	Voice recording working
+	•	Real-time waveform
+	•	Transcription to text
+
+Phase 9: Polish & Testing (Day 9-10)
+
+Tasks:
+	1.	Add loading states and skeletons
+	2.	Implement error boundaries
+	3.	Add toast notifications
+	4.	Test all haptic triggers
+	5.	Performance optimization
+	6.	Accessibility audit (WCAG 2.1 AA)
+	7.	Cross-device testing
+	8.	Bug fixes
+
+Deliverables:
+	•	Production-ready application
+	•	Polished UX
+	•	Accessible
+
+⸻
+
+9. DEVELOPER NOTES & CRITICAL DETAILS
+
+Authentication (Google OAuth)
+
+// Supabase Google sign-in
+const { data, error } = await supabase.auth.signInWithOAuth({
+  provider: 'google',
+  options: {
+    redirectTo: `${window.location.origin}/auth/callback`,
+    queryParams: {
+      access_type: 'offline',
+      prompt: 'consent',
+    },
+  },
+});
+
+Aspect Ratio Injection
+
+When user selects an aspect ratio for image generation, inject into the prompt payload:
+
+const finalPrompt = aspectRatio 
+  ? `${userMessage} --ar ${aspectRatio}`
+  : userMessage;
+
+Incognito Mode Implementation
+
+// Set on body element for global styling
+document.body.setAttribute('data-mode', isIncognito ? 'incognito' : 'standard');
+
+// In Zustand store - partialize to exclude incognito data
+persist(
+  (set, get) => ({ /* state */ }),
+  {
+    name: 'omnidev-storage',
+    partialize: (state) => 
+      state.isIncognito 
+        ? {} // Don't persist anything in incognito
+        : { conversations: state.conversations }
+  }
+)
+
+Haptic Feedback Pattern
+
+Always trigger haptics BEFORE the action occurs for perceived responsiveness:
+
+const handlePress = () => {
+  trigger('medium');  // Haptic first
+  doAction();         // Then action
+};
+
+Mobile Safe Areas
+
+Always account for notch and home indicator:
+
+.container {
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+}
+
+Touch Targets
+
+All interactive elements MUST be at least 44x44px:
+
+<button className="touch-target icon-button">
+  <Icon className="w-5 h-5" />
+</button>
+
+
+⸻
+
+10. CRITICAL REQUIREMENTS CHECKLIST
+	•	Mobile-first design (all components designed for mobile, then scaled up)
+	•	Minimum 44x44px touch targets on all interactive elements
+	•	Haptic feedback on every user interaction
+	•	Safe area respect (notch, home indicator)
+	•	60fps animations (no jank)
+	•	WCAG 2.1 AA accessibility compliance
+	•	Zero database persistence in incognito mode
+	•	Inter font used throughout
+	•	Teal (#22A4C1) as primary accent (VASEY/AI)
+	•	Charcoal (#32505A) for project icons
+	•	Medium Gray (#ABABAB) for tertiary accents
+	•	Dark blue (#2B3E47) as primary background
+	•	Glassmorphism on floating elements (backdrop-blur-xl)
+	•	Rounded-[2rem] corners on composer capsule
+	•	24px bottom offset on desktop, 16px on mobile
+	•	Context pills above composer, not inside
+	•	Ghost icon toggle in header
+	•	Aspect ratio selector for image generation mode
+	•	Swipeable sidebar drawer on mobile
+
+⸻
+
+END OF SPECIFICATION
+
+If you want, next step we can spin a smaller “Claude-facing” version of this prompt that strips out all the explanatory fluff and just leaves the constraints and code scaffolding.
+
